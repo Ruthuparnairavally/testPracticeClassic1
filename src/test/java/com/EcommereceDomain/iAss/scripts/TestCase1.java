@@ -1,5 +1,8 @@
 package com.EcommereceDomain.iAss.scripts;
 
+import java.io.IOException;
+
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.EducationalDomain.iAss.pom.AddToCartPage;
@@ -11,7 +14,7 @@ import generic.BaseClass;
 public class TestCase1 extends BaseClass{
 
 	@Test
-	public void tc1()
+	public void tc1() throws IOException
 	{
 		test=reports.createTest("tc1");
 		SkillRaryHomePage sh = new SkillRaryHomePage(driver);
@@ -22,5 +25,7 @@ public class TestCase1 extends BaseClass{
 		wu.doubleClick(driver, ac.addbtn());
 		ac.cart();
 		wu.alertAccept(driver);
+		
+		Assert.assertEquals(driver.getTitle(), fu.getPropertyData("title1"));
 	}
 }

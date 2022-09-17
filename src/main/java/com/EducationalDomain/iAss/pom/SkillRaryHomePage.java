@@ -12,6 +12,17 @@ public class SkillRaryHomePage {
 	
 	@FindBy(xpath="(//a[text()=' SkillRary Demo APP'])[2]")
 	private WebElement skillRaryDemo;
+
+	@FindBy(xpath="//a[text()=' Contact Us ']")
+	private WebElement contactUs;
+	
+	@FindBy(name="q")
+	private WebElement searchtb;
+	
+	
+
+	@FindBy(xpath="//input[@value='go']")
+	private WebElement search;
 	
 	public SkillRaryHomePage(WebDriver driver)
 	{
@@ -31,5 +42,31 @@ public class SkillRaryHomePage {
 		gearsBtn.click();
 		skillRaryDemo.click();
 		return new SkillRaryDemoPage(driver);
+	}
+	
+	public WebElement contact()
+	{
+		return contactUs;
+	}
+	
+	public ContactsPage contactUs(WebDriver driver)
+	{
+		contactUs.click();
+		return new ContactsPage(driver);
+	}
+	
+	public WebElement getSearchtb() {
+		return searchtb;
+	}
+
+	public WebElement getSearch() {
+		return search;
+	}
+	
+	public CoreJavaPage searchCourse(String text, WebDriver driver)
+	{
+		searchtb.sendKeys(text);
+		search.click();	
+		return new CoreJavaPage(driver);
 	}
 }

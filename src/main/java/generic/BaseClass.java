@@ -19,7 +19,7 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class BaseClass {
+public class BaseClass extends FileUtils {
 
 	public WebDriver driver;
 	public FileUtils fu = new FileUtils();
@@ -31,6 +31,8 @@ public class BaseClass {
 	@BeforeSuite
 	public void bsConfig() throws SQLException
 	{
+		con = fu.getCon();
+		System.out.println("Database Connected");
 		htmlReport = new ExtentHtmlReporter(AutoConstant.reportPath);
 		htmlReport.config().setDocumentTitle("SillRaryReport");
 		htmlReport.config().setTheme(Theme.DARK);
@@ -83,5 +85,6 @@ public class BaseClass {
 		htmlReport.flush();
 		reports.flush();
 		fu.closeCon();
+		System.out.println("database closed");
 	}
 }

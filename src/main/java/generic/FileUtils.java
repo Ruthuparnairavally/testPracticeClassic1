@@ -68,25 +68,25 @@ public class FileUtils {
 	}
 	
 	
-	@DataProvider(name="data")
-	public Object[][] getData(String name) throws EncryptedDocumentException, IOException
+	@DataProvider
+	public Object[][] getData() throws EncryptedDocumentException, IOException
 	{
 		FileInputStream fis = new FileInputStream(AutoConstant.excelFilePath);
 		Workbook wb = WorkbookFactory.create(fis);
 		
-		Sheet sh = wb.getSheet(name);
+		Sheet sh = wb.getSheet("Sheet1");
 		int row = sh.getLastRowNum();
 		short cell = sh.getRow(1).getLastCellNum();
 		
 		
-		Object [][] obj = new Object[row][cell];
+		Object obj[] [] = new Object[row] [cell];
 		
-		for(int i=1; i<=row; i++)
+		for(int i=0; i<row;i++)
 		{
-			for(int j=0; j<=cell; j++)
+			for(int j=0; j<cell;j++)
 			{
-				obj[i][j] = sh.getRow(i).getCell(j).getStringCellValue();
-				System.out.println(obj);
+				obj[i][j]=sh.getRow(i+1).getCell(j).getStringCellValue();
+				System.out.println(obj[i][j]);				
 			}
 		}
 		return obj;
@@ -101,7 +101,7 @@ public class FileUtils {
 	{
 		Driver driverref = new Driver();
 		DriverManager.registerDriver(driverref);
-		Connection con = DriverManager.getConnection(AutoConstant.dbURL, AutoConstant.dbuname, AutoConstant.dbpasswd);
+		con = DriverManager.getConnection(AutoConstant.dbURL, AutoConstant.dbuname, AutoConstant.dbpasswd);
 		return con;
 	}
 	
@@ -113,7 +113,7 @@ public class FileUtils {
 	 * @return
 	 * @throws SQLException
 	 */
-	public String getDatafrmDb(String query, String expdata, String x) throws SQLException
+	public String getDatafrmDb(String query, String expdata, int x) throws SQLException
 	{
 		Statement state = con.createStatement();
 		ResultSet res = state.executeQuery(query);
